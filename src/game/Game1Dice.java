@@ -14,23 +14,27 @@ public class Game1Dice implements Game {
 
     private final Playboard playboard;
     private final int playersNumber;
+
     private final Die die;
     private List<Player> players;
+
+    private final int finalPosition;
 
     Game1Dice(int playersNumber, Playboard playboard) {
         this.playboard = playboard;
         this.playersNumber = playersNumber;
 
         this.die = new SixSidedDie();
-        players = new ArrayList<Player>(playersNumber);
+        this.players = new ArrayList<Player>(playersNumber);
         initializePlayers();
+
+        this.finalPosition = playboard.getColumnsNumber() * playboard.getRowsNumber();
     }
 
     @Override
     public void startGame() {
         boolean gameWon = false;
         int currentPlayerIndex = 0;
-        int finalPosition = playboard.getColumnsNumber() * playboard.getRowsNumber();
 
         //gestione turni
         while (!gameWon) {

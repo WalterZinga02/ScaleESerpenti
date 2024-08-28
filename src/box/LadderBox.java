@@ -12,7 +12,7 @@ public class LadderBox extends AbstractBox{
     }
 
     public void act(Game game, Player player) {
-        player.move(SpecialBoxDestination);
+        player.move(specialBoxDestination);
     }
 
     @Override
