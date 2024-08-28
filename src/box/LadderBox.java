@@ -4,7 +4,7 @@ import game.Game;
 import player.Player;
 
 public class LadderBox extends AbstractBox{
-    private int specialBoxDestination;
+    private final int specialBoxDestination;
 
     public LadderBox(int boxNumber, int specialBoxDestination) {
         super(boxNumber);

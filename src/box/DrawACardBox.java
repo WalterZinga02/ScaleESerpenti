@@ -1,5 +1,6 @@
 package box;
 
+import game.Game;
 import player.Player;
 
 import java.util.Random;
@@ -12,9 +13,9 @@ public class DrawACardBox extends AbstractBox{
     }
 
     @Override
-    public void act(Player player){
+    public void act(Game game, Player player) {
         AbstractBox box = draw();
-        box.act(player);
+        box.act(game, player);
     }
 
     @Override

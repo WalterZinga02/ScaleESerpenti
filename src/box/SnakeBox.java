@@ -4,7 +4,7 @@ import game.Game;
 import player.Player;
 
 public class SnakeBox extends AbstractBox{
-    int specialBoxDestination;
+    private final int specialBoxDestination;
 
     public SnakeBox(int boxNumber, int specialBoxDestination) {
         super(boxNumber);

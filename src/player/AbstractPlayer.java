@@ -44,7 +44,6 @@ public abstract class AbstractPlayer implements Player {
             decrementTurnsToSkip();
             return 0;
         }
-        //singleDie=true; controllare
         lastThrow= die.throwTheDie();
         return lastThrow;
     }
@@ -54,7 +53,6 @@ public abstract class AbstractPlayer implements Player {
             decrementTurnsToSkip();
             return 0;
         }
-        //singleDie=false; controllare
         lastThrow = die1.throwTheDie()+die2.throwTheDie();
         return lastThrow;
     }
