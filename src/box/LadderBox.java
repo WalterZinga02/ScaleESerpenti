@@ -11,6 +11,7 @@ public class LadderBox extends AbstractBox{
         this.specialBoxDestination = specialBoxDestination;
     }
 
+    @Override
     public void act(Game game, Player player) {
         System.out.println("the player " + player.getName() + " is on a ladder box " + boxNumber);
         player.moveToBox(specialBoxDestination);
@@ -20,5 +21,10 @@ public class LadderBox extends AbstractBox{
     @Override
     public String getBoxType() {
         return "Ladder";
+    }
+
+    public AbstractBox copy() {
+        BoxFactory factory = new Box();
+        return factory.createBox(this.boxNumber, 2, this.specialBoxDestination);
     }
 }

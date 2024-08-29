@@ -11,6 +11,7 @@ public class SnakeBox extends AbstractBox{
         this.specialBoxDestination = specialBoxDestination;
     }
 
+    @Override
     public void act(Game game, Player player) {
         System.out.println("the player " + player.getName() + " is on a snake box " + boxNumber);
         player.moveToBox(specialBoxDestination);
@@ -20,5 +21,11 @@ public class SnakeBox extends AbstractBox{
     @Override
     public String getBoxType() {
         return "Snake";
+    }
+
+    @Override
+    public AbstractBox copy() {
+        BoxFactory factory = new Box();
+        return factory.createBox(this.boxNumber, 3, this.specialBoxDestination);
     }
 }

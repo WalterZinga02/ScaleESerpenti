@@ -4,8 +4,10 @@ import box.AbstractBox;
 import die.Die;
 import die.SixSidedDie;
 import playboard.Playboard;
+import playboard.PlayboardMemento;
 import player.ConcretePlayer;
 import player.Player;
+import player.PlayerMemento;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +16,8 @@ public class Game2Dice implements Game {
 
     private final Playboard playboard;
     private final int playersNumber;
-    private final boolean doubleSix;
-    private final boolean twoDiceMod;
+    private boolean doubleSix;
+    private boolean twoDiceMod;
 
     private final Die die1;
     private final Die die2;
@@ -23,6 +25,8 @@ public class Game2Dice implements Game {
 
     private final int finalPosition;
     private final int gameModBoxNumber;
+
+    private int currentPlayerIndex;
 
     Game2Dice(int playersNumber, Playboard playboard, boolean doubleSix, boolean twoDiceMod) {
         this.playboard = playboard;
@@ -36,13 +40,14 @@ public class Game2Dice implements Game {
         this.gameModBoxNumber = finalPosition - 7;
         this.players = new ArrayList<Player>(playersNumber);
         initializePlayers();
+
+        this.currentPlayerIndex = 0;
     }
 
     @Override
     public void startGame() {
         System.out.println("Starting game");
         boolean gameWon = false;
-        int currentPlayerIndex = 0;
 
         while (!gameWon) {
             Player currentPlayer = players.get(currentPlayerIndex);
@@ -103,5 +108,33 @@ public class Game2Dice implements Game {
                 players.add(new ConcretePlayer("player " + i, this.finalPosition));
             }
         }
+    }
+
+    //memento methods
+
+    public Game2dMemento saveMemento() {
+        List<PlayerMemento> playerMementos = new ArrayList<>(players.size());
+        for (Player player : players) {
+            playerMementos.add(player.saveMemento());
+        }
+
+        PlayboardMemento playboardMemento = playboard.saveMemento();
+        int currentPlayerIndex = players.indexOf(players.get(0));
+        return new Game2dMemento(playerMementos, playboardMemento, currentPlayerIndex, doubleSix, twoDiceMod);
+    }
+
+    public void restoreFromMemento(Game2dMemento memento) {
+        this.players = new ArrayList<>(memento.getPlayersState().size());
+        for (PlayerMemento playerMemento : memento.getPlayersState()) {
+            Player p = new ConcretePlayer("player", 0);
+            p.restoreFromMemento(playerMemento);
+            this.players.add(p);
+        }
+
+        this.playboard.restoreFromMemento(memento.getPlayboardState());
+        this.currentPlayerIndex = memento.getCurrentPlayerIndex();
+
+        this.doubleSix = memento.isDoubleSix();
+        this.twoDiceMod = memento.isTwoDiceMod();
     }
 }

@@ -7,8 +7,8 @@ public abstract class AbstractPlayer implements Player {
     protected String name;
     protected int position = 0;
     protected int turnsToSkip = 0;
-    private int lastThrow;
-    private int maxPosition;
+    protected int lastThrow;
+    protected int maxPosition;
 
     public AbstractPlayer(String name, int maxPosition) {
         this.name = name;
@@ -45,6 +45,21 @@ public abstract class AbstractPlayer implements Player {
     }
 
     @Override
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    @Override
+    public void setName(String name){
+        this.name = name;
+    }
+
+    @Override
+    public void setLastThrow(int lastThrow) {
+        this.lastThrow = lastThrow;
+    }
+
+    @Override
     public boolean hasTurnsToSkip() {
         return turnsToSkip > 0;
     }
@@ -72,4 +87,5 @@ public abstract class AbstractPlayer implements Player {
     public int getLastThrow(){
         return lastThrow;
     }
+
 }

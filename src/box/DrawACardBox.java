@@ -77,4 +77,10 @@ public class DrawACardBox extends AbstractBox{
             return drawnCard;
         }
     }
+
+    @Override
+    public AbstractBox copy() {
+        BoxFactory factory = new Box();
+        return factory.createBox(this.boxNumber, 8, 0);
+    }
 }

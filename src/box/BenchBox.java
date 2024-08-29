@@ -19,4 +19,10 @@ public class BenchBox extends AbstractBox{
     public String getBoxType() {
         return "Bench";
     }
+
+    @Override
+    public AbstractBox copy() {
+        BoxFactory factory = new Box();
+        return factory.createBox(this.boxNumber, 4, 0);
+    }
 }

@@ -19,4 +19,10 @@ public class DiceBox extends AbstractBox{
     public String getBoxType() {
         return "Dices";
     }
+
+    @Override
+    public AbstractBox copy() {
+        BoxFactory factory = new Box();
+        return factory.createBox(this.boxNumber, 7, 0);
+    }
 }

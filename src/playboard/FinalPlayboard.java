@@ -1,7 +1,6 @@
 package playboard;
 
 import box.AbstractBox;
-import box.BoxFactory;
 
 import java.util.Random;
 
@@ -114,5 +113,21 @@ public class FinalPlayboard extends AbstractPlayboard {
         while (!checkBox(stopBoxNumber)) {stopBoxNumber = random.nextInt(max-2)+2;}
         AbstractBox box = boxFactory.createBox(stopBoxNumber, 8,0);
         setBox(stopBoxNumber, box);
+    }
+
+    // Memento methods
+
+    @Override
+    public PlayboardMemento saveMemento() {
+        return new PlayboardMemento(boxes, rowsNumber, columnsNumber);
+    }
+
+    @Override
+    public void restoreFromMemento(PlayboardMemento memento) {
+        for (int i = 0; i < memento.getRowsNumber(); i++) {
+            for (int j = 0; j < memento.getColumnsNumber(); j++) {
+                boxes[i][j] = memento.getBoxes()[i][j].copy();
+            }
+        }
     }
 }

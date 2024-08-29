@@ -11,4 +11,5 @@ public abstract class AbstractBox {
     }
     public abstract void act(Game game, Player player);
     public abstract String getBoxType();
+    public abstract AbstractBox copy();
 }

@@ -9,6 +9,7 @@ public class InnBox extends AbstractBox{
         super(boxNumber);
     }
 
+    @Override
     public void act(Game game, Player player){
         System.out.println("the player " + player.getName() + " is on a Inn box "+ boxNumber);
         player.setTurnsToSkip(3);
@@ -17,5 +18,11 @@ public class InnBox extends AbstractBox{
     @Override
     public String getBoxType() {
         return "Inn";
+    }
+
+    @Override
+    public AbstractBox copy() {
+        BoxFactory factory = new Box();
+        return factory.createBox(this.boxNumber, 5, 0);
     }
 }
