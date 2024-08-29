@@ -10,6 +10,7 @@ public class SpringBox extends AbstractBox{
     }
 
     public void act(Game game, Player player) {
+        System.out.println("the player " + player.getName() + " is on a spring box "+boxNumber);
         game.moveAgain(player);
     }
 

@@ -18,7 +18,7 @@ public class Box implements BoxFactory {
             case 6:
                 return new SpringBox(boxNumber);
             case 7:
-                return new DicesBox(boxNumber);
+                return new DiceBox(boxNumber);
             case 8:
                 return new DrawACardBox(boxNumber);
             case 9:

@@ -10,7 +10,9 @@ public class BasicBox extends AbstractBox{
     }
 
     @Override
-    public void act(Game game, Player player) {}
+    public void act(Game game, Player player) {
+        System.out.println("the player " + player.getName() + " is on a basic box " + boxNumber);
+    }
 
     @Override
     public String getBoxType() {

@@ -10,6 +10,7 @@ public interface Player {
     boolean hasTurnsToSkip();
     void decrementTurnsToSkip();
     void move(int newPosition);
+    void moveToBox(int boxNumber);
     int throw1Dice(Die die);
     int throw2Dice(Die die1, Die die2);
 }

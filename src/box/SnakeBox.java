@@ -12,7 +12,9 @@ public class SnakeBox extends AbstractBox{
     }
 
     public void act(Game game, Player player) {
-        player.move(specialBoxDestination);
+        System.out.println("the player " + player.getName() + " is on a snake box " + boxNumber);
+        player.moveToBox(specialBoxDestination);
+        System.out.println("the player is moved to " + specialBoxDestination);
     }
 
     @Override

@@ -46,6 +46,10 @@ public abstract class AbstractPlayboard implements Playboard {
     //returns the box from the play board related to the box number
     @Override
     public AbstractBox getBox(int boxNumber) {
+        if (boxNumber < 1 || boxNumber > rowsNumber * columnsNumber) {
+            throw new IllegalArgumentException("Box number is out of bounds.");
+        }
         return boxes[(boxNumber - 1) / columnsNumber][(boxNumber - 1) % columnsNumber];
     }
+
 }

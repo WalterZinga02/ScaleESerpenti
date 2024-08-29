@@ -32,15 +32,15 @@ public class Game2Dice implements Game {
 
         this.die1 = new SixSidedDie();
         this.die2 = new SixSidedDie();
-        this.players = new ArrayList<Player>(playersNumber);
-        initializePlayers();
-
         this.finalPosition = playboard.getColumnsNumber() * playboard.getRowsNumber();
         this.gameModBoxNumber = finalPosition - 7;
+        this.players = new ArrayList<Player>(playersNumber);
+        initializePlayers();
     }
 
     @Override
     public void startGame() {
+        System.out.println("Starting game");
         boolean gameWon = false;
         int currentPlayerIndex = 0;
 
@@ -51,6 +51,7 @@ public class Game2Dice implements Game {
 
             if (currentPlayer.getPosition() == finalPosition) {
                 gameWon = true;
+                System.out.println("player "+currentPlayer.getName()+" won");
             } else {
                 currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
             }
@@ -58,25 +59,33 @@ public class Game2Dice implements Game {
     }
 
     @Override
-    public void turn(Player currentPlayer) {
+    public synchronized void turn(Player currentPlayer) {
         int move;
-
-        //Throws the dice depending on the game modalities chosen
-        if (twoDiceMod && currentPlayer.getPosition() < gameModBoxNumber) {
-            move = currentPlayer.throw2Dice(die1, die2);
-            if (doubleSix && move == 12) {
-                move += currentPlayer.throw2Dice(die1, die2);
+        System.out.println("Turn " + currentPlayer.getName());
+        if(!currentPlayer.hasTurnsToSkip()) {
+            //Throws the dice depending on the game modalities chosen
+            if (twoDiceMod && currentPlayer.getPosition() < gameModBoxNumber) {
+                move = currentPlayer.throw2Dice(die1, die2);
+                if (doubleSix && move == 12) {
+                    System.out.println("Double six dice");
+                    move += currentPlayer.throw2Dice(die1, die2);
+                }
+            } else {
+                System.out.println("you are near the victory! you throw only one die");
+                move = currentPlayer.throw1Dice(die1);
             }
-        } else {
-            move = currentPlayer.throw1Dice(die1);
+
+            //Updates the position of the current player
+            currentPlayer.move(move);
+
+            //checks the box in the new position
+            AbstractBox box = playboard.getBox(currentPlayer.getPosition());
+            box.act(this, currentPlayer);
         }
-
-        //Updates the position of the current player
-        currentPlayer.move(move);
-
-        //checks the box in the new position
-        AbstractBox box = playboard.getBox(currentPlayer.getPosition());
-        box.act(this, currentPlayer);
+        else {
+            currentPlayer.decrementTurnsToSkip();
+            System.out.println(currentPlayer.getName()+ " skips a turn in position "+currentPlayer.getPosition());
+        }
     }
 
     @Override
@@ -91,7 +100,7 @@ public class Game2Dice implements Game {
     private void initializePlayers() {
         for (int i = 0; i < playersNumber; i++) {
             if (players != null) {
-                players.set(i, new ConcretePlayer("player " + i));
+                players.add(new ConcretePlayer("player " + i, this.finalPosition));
             }
         }
     }

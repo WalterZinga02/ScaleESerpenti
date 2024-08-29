@@ -31,6 +31,7 @@ public class GameManager {
         } else {
             this.game = new Game1Dice(players, playboard);
         }
+        System.out.println("Game settings done");
     }
 
     // Method to start the game

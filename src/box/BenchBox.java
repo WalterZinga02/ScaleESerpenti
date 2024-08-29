@@ -11,6 +11,7 @@ public class BenchBox extends AbstractBox{
 
     @Override
     public void act(Game game, Player player){
+        System.out.println("the player " + player.getName() + " is on a bench box "+boxNumber);
         player.setTurnsToSkip(1);
     }
 
