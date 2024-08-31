@@ -16,6 +16,4 @@ public interface Player {
     void moveToBox(int boxNumber);
     int throw1Dice(Die die);
     int throw2Dice(Die die1, Die die2);
-    PlayerMemento saveMemento();
-    void restoreFromMemento(PlayerMemento memento);
 }

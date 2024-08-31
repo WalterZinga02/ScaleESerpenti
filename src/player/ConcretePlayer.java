@@ -6,16 +6,4 @@ public class ConcretePlayer extends AbstractPlayer{
         super(name, maxPosition);
     }
 
-    //memento methods
-
-    public PlayerMemento saveMemento() {
-        return new PlayerMemento(name, position, turnsToSkip, lastThrow);
-    }
-
-    public void restoreFromMemento(PlayerMemento memento) {
-        setName(memento.getName());
-        setPosition(memento.getPosition());
-        setTurnsToSkip(memento.getTurnsToSkip());
-        setLastThrow(memento.getLastThrow());
-    }
 }

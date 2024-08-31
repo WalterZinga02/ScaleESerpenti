@@ -1,23 +1,27 @@
 import game.GameManager;
+import game.GameSettings;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args){
+
+        GameSettings settings = new GameSettings();
 
         // game settings
-        int players = 2;
-        int rows = 5;
-        int columns = 5;
-        boolean stopBoxes = true;
-        boolean bonusBoxes = true;
-        boolean dacBoxes = true;
-        boolean twoDice = true;
-        boolean doubleSix = true;
-        boolean twoDiceMod = true;
+        settings.setPlayers(2);
+        settings.setRows(5);
+        settings.setColumns(5);
+        settings.setStopBoxes(false);
+        settings.setBonusBoxes(false);
+        settings.setDacBoxes(false);
+        settings.setTwoDice(false);
+        settings.setDoubleSix(false);
+        settings.setTwoDiceMod(false);
 
         System.out.println("Welcome to Ladders and Snakes");
 
         //starting the game
-        GameManager gameManager = GameManager.getInstance(players, rows, columns, stopBoxes, bonusBoxes, dacBoxes, twoDice, doubleSix, twoDiceMod);
+        GameManager gameManager = GameManager.getInstance(settings);
         gameManager.startGame();
+
     }
 }

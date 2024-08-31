@@ -4,13 +4,13 @@ import box.AbstractBox;
 import die.Die;
 import die.SixSidedDie;
 import playboard.Playboard;
-import playboard.PlayboardMemento;
 import player.ConcretePlayer;
 import player.Player;
-import player.PlayerMemento;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Thread.sleep;
 
 public class Game2Dice implements Game {
 
@@ -91,6 +91,11 @@ public class Game2Dice implements Game {
             currentPlayer.decrementTurnsToSkip();
             System.out.println(currentPlayer.getName()+ " skips a turn in position "+currentPlayer.getPosition());
         }
+        try {
+            sleep(1500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -108,33 +113,5 @@ public class Game2Dice implements Game {
                 players.add(new ConcretePlayer("player " + i, this.finalPosition));
             }
         }
-    }
-
-    //memento methods
-
-    public Game2dMemento saveMemento() {
-        List<PlayerMemento> playerMementos = new ArrayList<>(players.size());
-        for (Player player : players) {
-            playerMementos.add(player.saveMemento());
-        }
-
-        PlayboardMemento playboardMemento = playboard.saveMemento();
-        int currentPlayerIndex = players.indexOf(players.get(0));
-        return new Game2dMemento(playerMementos, playboardMemento, currentPlayerIndex, doubleSix, twoDiceMod);
-    }
-
-    public void restoreFromMemento(Game2dMemento memento) {
-        this.players = new ArrayList<>(memento.getPlayersState().size());
-        for (PlayerMemento playerMemento : memento.getPlayersState()) {
-            Player p = new ConcretePlayer("player", 0);
-            p.restoreFromMemento(playerMemento);
-            this.players.add(p);
-        }
-
-        this.playboard.restoreFromMemento(memento.getPlayboardState());
-        this.currentPlayerIndex = memento.getCurrentPlayerIndex();
-
-        this.doubleSix = memento.isDoubleSix();
-        this.twoDiceMod = memento.isTwoDiceMod();
     }
 }

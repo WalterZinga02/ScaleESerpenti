@@ -6,9 +6,10 @@ import die.SixSidedDie;
 import playboard.Playboard;
 import player.ConcretePlayer;
 import player.Player;
-import player.PlayerMemento;
 
 import java.util.ArrayList;
+
+import static java.lang.Thread.sleep;
 
 public class Game1Dice implements Game {
 
@@ -34,9 +35,9 @@ public class Game1Dice implements Game {
     }
 
     @Override
-    public void startGame() {
-        System.out.println("Game started correctly");
+    public void startGame(){
         boolean gameWon = false;
+        System.out.println("Game started correctly");
 
         while (!gameWon) {
             Player currentPlayer = players.get(currentPlayerIndex);
@@ -53,7 +54,7 @@ public class Game1Dice implements Game {
         }
     }
 
-    public synchronized void turn(Player currentPlayer) {
+    public synchronized void turn(Player currentPlayer){
         int move;
         System.out.println("Turn " + currentPlayer.getName());
         if(!currentPlayer.hasTurnsToSkip()){
@@ -71,7 +72,11 @@ public class Game1Dice implements Game {
             currentPlayer.decrementTurnsToSkip();
             System.out.println(currentPlayer.getName() + " skips a turn in position "+currentPlayer.getPosition());
         }
-
+        try {
+            sleep(1500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void moveAgain(Player currentPlayer) {
@@ -88,28 +93,5 @@ public class Game1Dice implements Game {
                 players.add(new ConcretePlayer("player " + i, this.finalPosition));
             }
         }
-    }
-
-    //memento methods
-
-    public Game1dMemento save() {
-        ArrayList<PlayerMemento> playerStates = new ArrayList<>();
-        for (Player player : players) {
-            playerStates.add(player.saveMemento()); // Saves the state of each player
-        }
-        return new Game1dMemento(playerStates, currentPlayerIndex, playboard.saveMemento(), finalPosition);
-    }
-
-    public void restore(Game1dMemento memento) {
-        this.players = new ArrayList<>(memento.getPlayersState().size());
-        for (PlayerMemento playerMemento : memento.getPlayersState()) {
-            Player p = new ConcretePlayer("player", 0);
-            p.restoreFromMemento(playerMemento);
-            this.players.add(p);
-        }
-        this.currentPlayerIndex = memento.getCurrentPlayerIndex();
-        this.playboard.restoreFromMemento(memento.getPlayboardState());
-        this.finalPosition = memento.getFinalPosition();
-        this.die = new SixSidedDie();
     }
 }

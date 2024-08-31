@@ -7,6 +7,4 @@ public interface Playboard {
     int getRowsNumber();
     int getColumnsNumber();
     AbstractBox getBox(int boxNumber);
-    PlayboardMemento saveMemento();
-    void restoreFromMemento(PlayboardMemento memento);
 }

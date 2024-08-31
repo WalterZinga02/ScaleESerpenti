@@ -6,18 +6,9 @@ import java.util.Random;
 
 public class FinalPlayboard extends AbstractPlayboard {
 
-    private static FinalPlayboard instance;
-
-    private FinalPlayboard(int rowsNumber, int columnsNumber, boolean stopBoxes, boolean bonusBoxes, boolean drawACardBoxes) {
+    public FinalPlayboard(int rowsNumber, int columnsNumber, boolean stopBoxes, boolean bonusBoxes, boolean drawACardBoxes) {
         super(rowsNumber, columnsNumber, stopBoxes, bonusBoxes, drawACardBoxes);
         initializeBoxes();
-    }
-
-    public static synchronized FinalPlayboard getInstance(int rowsNumber, int columnsNumber, boolean stopBoxes, boolean bonusBoxes, boolean drawACardBoxes) {
-        if (instance == null) {
-            instance = new FinalPlayboard(rowsNumber, columnsNumber, stopBoxes, bonusBoxes, drawACardBoxes);
-        }
-        return instance;
     }
 
     @Override
@@ -115,19 +106,4 @@ public class FinalPlayboard extends AbstractPlayboard {
         setBox(stopBoxNumber, box);
     }
 
-    // Memento methods
-
-    @Override
-    public PlayboardMemento saveMemento() {
-        return new PlayboardMemento(boxes, rowsNumber, columnsNumber);
-    }
-
-    @Override
-    public void restoreFromMemento(PlayboardMemento memento) {
-        for (int i = 0; i < memento.getRowsNumber(); i++) {
-            for (int j = 0; j < memento.getColumnsNumber(); j++) {
-                boxes[i][j] = memento.getBoxes()[i][j].copy();
-            }
-        }
-    }
 }
