@@ -1,6 +1,5 @@
 import game.Caretaker;
 import game.GameManager;
-import game.GameSettings;
 
 import java.io.IOException;
 import java.util.Scanner;
