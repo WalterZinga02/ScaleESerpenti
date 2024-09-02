@@ -5,7 +5,7 @@ import die.Die;
 public abstract class AbstractPlayer implements Player {
 
     protected String name;
-    protected int position = 0;
+    protected int position = 1;
     protected int turnsToSkip = 0;
     protected int lastThrow;
     protected int maxPosition;

@@ -3,10 +3,15 @@ package game;
 import box.AbstractBox;
 import die.Die;
 import die.SixSidedDie;
+import gui.GameBoardGUI;
+import playboard.FinalPlayboard;
 import playboard.Playboard;
 import player.ConcretePlayer;
 import player.Player;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import static java.lang.Thread.sleep;
@@ -22,6 +27,8 @@ public class Game1Dice implements Game {
     private int finalPosition;
     private int currentPlayerIndex;
 
+    private GameBoardGUI gui;
+
     Game1Dice(int playersNumber, Playboard playboard) {
         this.playboard = playboard;
         this.playersNumber = playersNumber;
@@ -32,26 +39,40 @@ public class Game1Dice implements Game {
         initializePlayers();
 
         this.currentPlayerIndex = 0;
+        this.gui = new GameBoardGUI(playboard.getRowsNumber(), playboard.getColumnsNumber());
     }
 
-    @Override
-    public void startGame(){
-        boolean gameWon = false;
+    public void startGame() {
+        GameBoardGUI gui = new GameBoardGUI(playboard.getRowsNumber(), playboard.getColumnsNumber());
+        gui.startGame();
         System.out.println("Game started correctly");
 
-        while (!gameWon) {
-            Player currentPlayer = players.get(currentPlayerIndex);
+        ActionListener turnListener = new ActionListener() {
+            private boolean gameWon = false;
 
-            turn(currentPlayer);
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!gameWon) {
+                    Player currentPlayer = players.get(currentPlayerIndex);
 
-            //checks if the game is won by the current player
-            if (currentPlayer.getPosition() == finalPosition) {
-                gameWon = true;
-                System.out.println("player "+ currentPlayer.getName() + " won");
-            } else {
-                currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+                    turn(currentPlayer);
+                    gui.updateBoard((FinalPlayboard) playboard, players);
+
+                    // checks if the game is won by the current player
+                    if (currentPlayer.getPosition() == finalPosition) {
+                        gameWon = true;
+                        ((Timer) e.getSource()).stop();
+                        JOptionPane.showMessageDialog(gui, "Player " + currentPlayer.getName() + " won!");
+                    } else {
+                        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+                    }
+                }
             }
-        }
+        };
+
+        // Create a Timer to execute the turn logic every 1.5 seconds
+        Timer turnTimer = new Timer(500, turnListener);
+        turnTimer.start();
     }
 
     public synchronized void turn(Player currentPlayer){
@@ -60,6 +81,8 @@ public class Game1Dice implements Game {
         if(!currentPlayer.hasTurnsToSkip()){
             //Throws the dice
             move = currentPlayer.throw1Dice(die);
+
+            //System.out.println("Move " + move); //debug
 
             //Updates the position of the current player
             currentPlayer.move(move);
@@ -72,6 +95,15 @@ public class Game1Dice implements Game {
             currentPlayer.decrementTurnsToSkip();
             System.out.println(currentPlayer.getName() + " skips a turn in position "+currentPlayer.getPosition());
         }
+
+        // Updates the board GUI
+        SwingUtilities.invokeLater(() -> {
+            GameBoardGUI gui = new GameBoardGUI(playboard.getRowsNumber(), playboard.getColumnsNumber());
+            gui.updateBoard((FinalPlayboard) playboard, players);
+            gui.repaint();
+            gui.revalidate();
+        });
+
         try {
             sleep(1500);
         } catch (InterruptedException e) {

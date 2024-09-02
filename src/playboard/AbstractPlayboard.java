@@ -17,8 +17,8 @@ public abstract class AbstractPlayboard implements Playboard {
 
         //checks if the size of the newly created play board is suitable for a balanced organization of the game boxes
         int totalBoxes = rowsNumber * columnsNumber;
-        if (totalBoxes<20 || totalBoxes>100) {
-            throw new IllegalArgumentException("the number of boxes must be greater than 20 and less than 100. Suggested playboard size: 5x5");
+        if (totalBoxes<25 || totalBoxes>100) {
+            throw new IllegalArgumentException("the number of boxes must be greater than 25 and less than 100.");
         }
 
         this.rowsNumber = rowsNumber;

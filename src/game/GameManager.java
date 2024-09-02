@@ -1,5 +1,6 @@
 package game;
 
+import gui.GameBoardGUI;
 import playboard.FinalPlayboard;
 import playboard.Playboard;
 
@@ -15,10 +16,7 @@ public class GameManager {
     private boolean doubleSix;
     private boolean twoDiceMod;
 
-    // Singleton instance
     private static GameManager instance;
-
-    // Strategy for the game mode
     private Game game;
 
     // Private constructor to prevent instantiation
@@ -32,20 +30,7 @@ public class GameManager {
         this.twoDice = twoDice;
         this.doubleSix = doubleSix;
         this.twoDiceMod = twoDiceMod;
-        setGame();
     }
-    /*
-    public static synchronized GameManager getInstanceFromFile() {
-        GameSettings settings = new GameSettings();
-        try {
-            settings.loadFromFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return new GameManager(settings);
-    }
-
-     */
 
     public static synchronized GameManager getInstance(int players, int rows, int columns, boolean stopBoxes, boolean bonusBoxes, boolean dacBoxes, boolean twoDice, boolean doubleSix, boolean twoDiceMod) {
         if (instance == null) {
@@ -57,7 +42,7 @@ public class GameManager {
     // Sets the strategy based on the game mode
     private void setGame() {
         if (players > 4 || players < 2) {
-            throw new IllegalArgumentException("the number of players must be greater than 2 and less than 4.");
+            throw new IllegalArgumentException("the number of players must be greater than 1 and less than 5.");
         }
         Playboard playboard = new FinalPlayboard(rows, columns, stopBoxes, bonusBoxes, dacBoxes);
         if (twoDice) {
@@ -70,6 +55,7 @@ public class GameManager {
 
     // Method to start the game
     public void startGame(){
+        setGame();
         if (game == null) {
             throw new IllegalStateException("The game was not initialized correctly.");
         }
@@ -91,6 +77,5 @@ public class GameManager {
         this.twoDice = settings.isTwoDice();
         this.doubleSix = settings.isDoubleSix();
         this.twoDiceMod = settings.isTwoDiceMod();
-        setGame();
     }
 }

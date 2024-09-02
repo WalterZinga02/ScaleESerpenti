@@ -3,6 +3,7 @@ package game;
 import box.AbstractBox;
 import die.Die;
 import die.SixSidedDie;
+import gui.GameBoardGUI;
 import playboard.Playboard;
 import player.ConcretePlayer;
 import player.Player;
@@ -69,16 +70,25 @@ public class Game2Dice implements Game {
         System.out.println("Turn " + currentPlayer.getName());
         if(!currentPlayer.hasTurnsToSkip()) {
             //Throws the dice depending on the game modalities chosen
-            if (twoDiceMod && currentPlayer.getPosition() < gameModBoxNumber) {
-                move = currentPlayer.throw2Dice(die1, die2);
-                if (doubleSix && move == 12) {
-                    System.out.println("Double six dice");
-                    move += currentPlayer.throw2Dice(die1, die2);
+            if(twoDiceMod){
+                if(currentPlayer.getPosition() < gameModBoxNumber) {
+                    move = currentPlayer.throw2Dice(die1, die2);
+                } else {
+                    System.out.println("you are near the victory! you throw only one die");
+                    move = currentPlayer.throw1Dice(die1);
                 }
-            } else {
-                System.out.println("you are near the victory! you throw only one die");
-                move = currentPlayer.throw1Dice(die1);
             }
+            else{
+                move = currentPlayer.throw2Dice(die1, die2);
+            }
+
+            //controls the double six mod
+            if (doubleSix && move == 12) {
+                System.out.println("Double six dice");
+                move += currentPlayer.throw2Dice(die1, die2);
+            }
+
+            //System.out.println("Move " + move); //debug
 
             //Updates the position of the current player
             currentPlayer.move(move);

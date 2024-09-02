@@ -27,18 +27,18 @@ public class Caretaker {
 
     private GameSettings loadFromFile(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            System.out.println("Inizio lettura del file");
+            System.out.println("Reading from file...");
             StringBuilder sb = new StringBuilder();
             String line;
 
-            // Legge ogni riga e la aggiunge allo StringBuilder
+            //reads every line
             while ((line = reader.readLine()) != null) {
-                System.out.println(line); // Stampa la riga per debug
+                System.out.println(line); // debug
                 sb.append(line);
                 sb.append("\n");
             }
 
-            // Crea il testo finale da passare al costruttore di GameSettings
+            // creates the new text to buid the game settings
             String text = sb.toString();
             return new GameSettings(text);
         } catch (IOException e) {
@@ -47,4 +47,3 @@ public class Caretaker {
         }
     }
 }
-

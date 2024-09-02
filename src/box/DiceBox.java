@@ -17,7 +17,7 @@ public class DiceBox extends AbstractBox{
 
     @Override
     public String getBoxType() {
-        return "Dices";
+        return "Dice";
     }
 
     @Override

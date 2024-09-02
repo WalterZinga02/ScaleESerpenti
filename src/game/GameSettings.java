@@ -32,72 +32,36 @@ public class GameSettings implements Serializable {
         return players;
     }
 
-    public void setPlayers(int players) {
-        this.players = players;
-    }
-
     public int getRows() {
         return rows;
-    }
-
-    public void setRows(int rows) {
-        this.rows = rows;
     }
 
     public int getColumns() {
         return columns;
     }
 
-    public void setColumns(int columns) {
-        this.columns = columns;
-    }
-
     public boolean isStopBoxes() {
         return stopBoxes;
-    }
-
-    public void setStopBoxes(boolean stopBoxes) {
-        this.stopBoxes = stopBoxes;
     }
 
     public boolean isBonusBoxes() {
         return bonusBoxes;
     }
 
-    public void setBonusBoxes(boolean bonusBoxes) {
-        this.bonusBoxes = bonusBoxes;
-    }
-
     public boolean isDacBoxes() {
         return dacBoxes;
-    }
-
-    public void setDacBoxes(boolean dacBoxes) {
-        this.dacBoxes = dacBoxes;
     }
 
     public boolean isTwoDice() {
         return twoDice;
     }
 
-    public void setTwoDice(boolean twoDice) {
-        this.twoDice = twoDice;
-    }
-
     public boolean isDoubleSix() {
         return doubleSix;
     }
 
-    public void setDoubleSix(boolean doubleSix) {
-        this.doubleSix = doubleSix;
-    }
-
     public boolean isTwoDiceMod() {
         return twoDiceMod;
-    }
-
-    public void setTwoDiceMod(boolean twoDiceMod) {
-        this.twoDiceMod = twoDiceMod;
     }
 
     public String getText(){
