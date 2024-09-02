@@ -27,7 +27,7 @@ public class FinalPlayboard extends AbstractPlayboard {
 
         //initializes 2 ladders
         for (int i = 0; i < 2; i++) {
-            int ladderStart = random.nextInt(max-1)+2; //generates a number between 1 and "max-1" (both included)
+            int ladderStart = random.nextInt(max-1)+1; //generates a number between 1 and "max-1" (both included)
             int ladderEnd = random.nextInt(max-ladderStart)+ladderStart+1; //generates a number between "ladderStart"+1 and "max" (both included)
             while (!checkBox(ladderStart) || !checkBox(ladderEnd)) { //repeat the process untill the initialization is correct
                 ladderStart = random.nextInt(max-1)+1;

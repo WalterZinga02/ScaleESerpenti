@@ -61,7 +61,7 @@ public class GameSettingsGUI extends JFrame {
     }
 
     private void loadLastSettings() {
-        gameManager = GameManager.getInstance(2, 5, 5, false, false, false, false, false, false); // default if null
+        gameManager = GameManager.getInstance(2, 10, 10, false, false, false, true, false, false); // default settings
         caretaker.undo(gameManager);
         JOptionPane.showMessageDialog(this, "Settings loaded correctly!");
         gameManager.startGame();
@@ -94,7 +94,7 @@ public class GameSettingsGUI extends JFrame {
         bonusBoxesCheckBox = new JCheckBox();
         configFrame.add(bonusBoxesCheckBox);
 
-        configFrame.add(new JLabel("Draw a Card boxes:"));
+        configFrame.add(new JLabel("Draw a Card box:"));
         dacBoxesCheckBox = new JCheckBox();
         configFrame.add(dacBoxesCheckBox);
 
@@ -102,12 +102,13 @@ public class GameSettingsGUI extends JFrame {
         twoDiceCheckBox = new JCheckBox();
         configFrame.add(twoDiceCheckBox);
 
+        //Double six and twoDiceMod can be checked only if two dices is checked.
         configFrame.add(new JLabel("Double six mod:"));
         doubleSixCheckBox = new JCheckBox();
         doubleSixCheckBox.setEnabled(false);
         configFrame.add(doubleSixCheckBox);
 
-        configFrame.add(new JLabel("Mod one dice if near the last box:"));
+        configFrame.add(new JLabel("Mod 'one dice if near the last box':"));
         twoDiceModCheckBox = new JCheckBox();
         twoDiceModCheckBox.setEnabled(false);
         configFrame.add(twoDiceModCheckBox);
@@ -122,7 +123,7 @@ public class GameSettingsGUI extends JFrame {
         });
 
         // Save button to apply settings
-        JButton saveButton = new JButton("Start game and then save Configuration");
+        JButton saveButton = new JButton("Start the game and save Configuration");
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -156,4 +157,3 @@ public class GameSettingsGUI extends JFrame {
         gameManager.startGame();
     }
 }
-

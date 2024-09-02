@@ -3,6 +3,8 @@ package box;
 import game.Game;
 import player.Player;
 
+import static java.lang.Thread.sleep;
+
 public class LadderBox extends AbstractBox{
     private final int specialBoxDestination;
 
@@ -22,6 +24,8 @@ public class LadderBox extends AbstractBox{
     public String getBoxType() {
         return "Ladder";
     }
+
+    public int getSpecialBoxDestination() {return specialBoxDestination;}
 
     public AbstractBox copy() {
         BoxFactory factory = new Box();

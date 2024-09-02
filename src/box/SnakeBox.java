@@ -23,6 +23,8 @@ public class SnakeBox extends AbstractBox{
         return "Snake";
     }
 
+    public int getSpecialBoxDestination() {return specialBoxDestination;}
+
     @Override
     public AbstractBox copy() {
         BoxFactory factory = new Box();

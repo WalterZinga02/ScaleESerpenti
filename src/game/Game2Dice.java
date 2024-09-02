@@ -4,12 +4,15 @@ import box.AbstractBox;
 import die.Die;
 import die.SixSidedDie;
 import gui.GameBoardGUI;
+import playboard.FinalPlayboard;
 import playboard.Playboard;
 import player.ConcretePlayer;
 import player.Player;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.Thread.sleep;
 
@@ -22,12 +25,13 @@ public class Game2Dice implements Game {
 
     private final Die die1;
     private final Die die2;
-    private List<Player> players;
+    private ArrayList<Player> players;
 
     private final int finalPosition;
     private final int gameModBoxNumber;
 
     private int currentPlayerIndex;
+    private GameBoardGUI gui;
 
     Game2Dice(int playersNumber, Playboard playboard, boolean doubleSix, boolean twoDiceMod) {
         this.playboard = playboard;
@@ -43,25 +47,40 @@ public class Game2Dice implements Game {
         initializePlayers();
 
         this.currentPlayerIndex = 0;
+        this.gui=new GameBoardGUI(playboard.getRowsNumber(), playboard.getColumnsNumber());
     }
 
     @Override
     public void startGame() {
-        System.out.println("Starting game");
-        boolean gameWon = false;
+        gui.startGame();
+        System.out.println("Game started correctly");
 
-        while (!gameWon) {
-            Player currentPlayer = players.get(currentPlayerIndex);
+        ActionListener turnListener = new ActionListener() {
 
-            turn(currentPlayer);
+            private boolean gameWon = false;
 
-            if (currentPlayer.getPosition() == finalPosition) {
-                gameWon = true;
-                System.out.println("player "+currentPlayer.getName()+" won");
-            } else {
-                currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!gameWon) {
+                    Player currentPlayer = players.get(currentPlayerIndex);
+
+                    turn(currentPlayer);
+                    gui.updateBoard((FinalPlayboard) playboard, players);
+
+                    // checks if the game is won by the current player
+                    if (currentPlayer.getPosition() == finalPosition) {
+                        gameWon = true;
+                        ((Timer) e.getSource()).stop();
+                        JOptionPane.showMessageDialog(gui, "Player " + currentPlayer.getName() + " won!");
+                        System.exit(0);
+                    } else {
+                        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+                    }
+                }
             }
-        }
+        };
+        Timer turnTimer = new Timer(0, turnListener);
+        turnTimer.start();
     }
 
     @Override
@@ -95,12 +114,22 @@ public class Game2Dice implements Game {
 
             //checks the box in the new position
             AbstractBox box = playboard.getBox(currentPlayer.getPosition());
+            gui.showPopupMessage(box, currentPlayer.getName());
             box.act(this, currentPlayer);
         }
         else {
             currentPlayer.decrementTurnsToSkip();
             System.out.println(currentPlayer.getName()+ " skips a turn in position "+currentPlayer.getPosition());
         }
+
+        // Updates the board GUI
+        SwingUtilities.invokeLater(() -> {
+            GameBoardGUI gui = new GameBoardGUI(playboard.getRowsNumber(), playboard.getColumnsNumber());
+            gui.updateBoard((FinalPlayboard) playboard, players);
+            gui.repaint();
+            gui.revalidate();
+        });
+
         try {
             sleep(1500);
         } catch (InterruptedException e) {

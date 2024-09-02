@@ -43,11 +43,11 @@ public class Game1Dice implements Game {
     }
 
     public void startGame() {
-        GameBoardGUI gui = new GameBoardGUI(playboard.getRowsNumber(), playboard.getColumnsNumber());
         gui.startGame();
         System.out.println("Game started correctly");
 
         ActionListener turnListener = new ActionListener() {
+
             private boolean gameWon = false;
 
             @Override
@@ -63,6 +63,7 @@ public class Game1Dice implements Game {
                         gameWon = true;
                         ((Timer) e.getSource()).stop();
                         JOptionPane.showMessageDialog(gui, "Player " + currentPlayer.getName() + " won!");
+                        System.exit(0);
                     } else {
                         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
                     }
@@ -70,8 +71,7 @@ public class Game1Dice implements Game {
             }
         };
 
-        // Create a Timer to execute the turn logic every 1.5 seconds
-        Timer turnTimer = new Timer(500, turnListener);
+        Timer turnTimer = new Timer(0, turnListener);
         turnTimer.start();
     }
 
@@ -89,6 +89,7 @@ public class Game1Dice implements Game {
 
             //checks the box in the new position
             AbstractBox box = playboard.getBox(currentPlayer.getPosition());
+            gui.showPopupMessage(box, currentPlayer.getName());
             box.act(this, currentPlayer);
         }
         else {
