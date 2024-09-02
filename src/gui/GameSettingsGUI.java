@@ -108,7 +108,7 @@ public class GameSettingsGUI extends JFrame {
         doubleSixCheckBox.setEnabled(false);
         configFrame.add(doubleSixCheckBox);
 
-        configFrame.add(new JLabel("Mod 'one dice if near the last box':"));
+        configFrame.add(new JLabel("Mod one dice if near the last box:"));
         twoDiceModCheckBox = new JCheckBox();
         twoDiceModCheckBox.setEnabled(false);
         configFrame.add(twoDiceModCheckBox);
@@ -133,7 +133,6 @@ public class GameSettingsGUI extends JFrame {
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-                JOptionPane.showMessageDialog(configFrame, "Last configuration saved successfully!");
                 configFrame.dispose();
             }
         });

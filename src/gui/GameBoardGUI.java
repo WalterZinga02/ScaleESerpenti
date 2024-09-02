@@ -93,7 +93,7 @@ public class GameBoardGUI extends JFrame {
     private String getBoxRepresentation(AbstractBox box) {
         switch (box.getBoxType()) {
             case "Ladder":
-                return "<html><center>" + box.getBoxNumber() + "<br>🔼</center><br>LADDER</center></html>";
+                return "<html><center>" + box.getBoxNumber() + "<br>↗</center><br>LADDER</center></html>";
             case "Snake":
                 return "<html><center>" + box.getBoxNumber() + "<br>🐍</center><br>SNAKE</center></html>";
             case "Dice":

@@ -44,6 +44,7 @@ public class Game1Dice implements Game {
 
     public void startGame() {
         gui.startGame();
+        gui.updateBoard((FinalPlayboard) playboard, players);
         System.out.println("Game started correctly");
 
         ActionListener turnListener = new ActionListener() {
@@ -62,7 +63,7 @@ public class Game1Dice implements Game {
                     if (currentPlayer.getPosition() == finalPosition) {
                         gameWon = true;
                         ((Timer) e.getSource()).stop();
-                        JOptionPane.showMessageDialog(gui, "Player " + currentPlayer.getName() + " won!");
+                        JOptionPane.showMessageDialog(gui, currentPlayer.getName() + " won!");
                         System.exit(0);
                     } else {
                         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();

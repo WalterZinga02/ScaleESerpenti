@@ -45,21 +45,6 @@ public abstract class AbstractPlayer implements Player {
     }
 
     @Override
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
-    @Override
-    public void setName(String name){
-        this.name = name;
-    }
-
-    @Override
-    public void setLastThrow(int lastThrow) {
-        this.lastThrow = lastThrow;
-    }
-
-    @Override
     public boolean hasTurnsToSkip() {
         return turnsToSkip > 0;
     }

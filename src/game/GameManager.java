@@ -1,6 +1,5 @@
 package game;
 
-import gui.GameBoardGUI;
 import playboard.FinalPlayboard;
 import playboard.Playboard;
 

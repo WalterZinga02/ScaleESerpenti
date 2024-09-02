@@ -31,7 +31,7 @@ public class Caretaker {
             StringBuilder sb = new StringBuilder();
             String line;
 
-            //reads every line
+            // reads every line
             while ((line = reader.readLine()) != null) {
                 System.out.println(line); // debug
                 sb.append(line);

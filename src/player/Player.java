@@ -7,9 +7,6 @@ public interface Player {
     int getLastThrow();
     int getPosition();
     void setTurnsToSkip(int turns);
-    void setPosition(int position);
-    void setName(String name);
-    void setLastThrow(int lastThrow);
     boolean hasTurnsToSkip();
     void decrementTurnsToSkip();
     void move(int newPosition);
