@@ -3,7 +3,6 @@ package box;
 import game.Game;
 import player.Player;
 
-import javax.swing.*;
 import java.util.*;
 
 public class DrawACardBox extends AbstractBox{
@@ -77,11 +76,5 @@ public class DrawACardBox extends AbstractBox{
             cards.add(drawnCard); //adds the card in the back of the deck
             return drawnCard;
         }
-    }
-
-    @Override
-    public AbstractBox copy() {
-        BoxFactory factory = new Box();
-        return factory.createBox(this.boxNumber, 8, 0);
     }
 }

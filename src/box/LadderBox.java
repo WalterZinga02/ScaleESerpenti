@@ -27,8 +27,4 @@ public class LadderBox extends AbstractBox{
 
     public int getSpecialBoxDestination() {return specialBoxDestination;}
 
-    public AbstractBox copy() {
-        BoxFactory factory = new Box();
-        return factory.createBox(this.boxNumber, 2, this.specialBoxDestination);
-    }
 }

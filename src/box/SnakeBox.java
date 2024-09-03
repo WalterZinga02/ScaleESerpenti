@@ -24,10 +24,4 @@ public class SnakeBox extends AbstractBox{
     }
 
     public int getSpecialBoxDestination() {return specialBoxDestination;}
-
-    @Override
-    public AbstractBox copy() {
-        BoxFactory factory = new Box();
-        return factory.createBox(this.boxNumber, 3, this.specialBoxDestination);
-    }
 }

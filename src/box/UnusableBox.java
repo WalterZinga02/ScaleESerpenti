@@ -19,9 +19,4 @@ public class UnusableBox extends AbstractBox{
         return "Unuseable";
     }
 
-    @Override
-    public AbstractBox copy() {
-        BoxFactory factory = new Box();
-        return factory.createBox(this.boxNumber, 9, 0);
-    }
 }

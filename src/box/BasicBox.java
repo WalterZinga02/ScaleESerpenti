@@ -18,10 +18,4 @@ public class BasicBox extends AbstractBox{
     public String getBoxType() {
         return "Basic";
     }
-
-    @Override
-    public AbstractBox copy() {
-        BoxFactory factory = new Box();
-        return factory.createBox(this.boxNumber, 1, 0);
-    }
 }
