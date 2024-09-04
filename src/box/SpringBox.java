@@ -17,7 +17,7 @@ public class SpringBox extends AbstractBox{
 
     @Override
     public String getBoxType() {
-        return "Sping";
+        return "Spring";
     }
 
 }
