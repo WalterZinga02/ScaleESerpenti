@@ -72,7 +72,7 @@ public class Game1Dice implements Game {
             }
         };
 
-        Timer turnTimer = new Timer(0, turnListener);
+        Timer turnTimer = new Timer(1500, turnListener);
         turnTimer.start();
     }
 
@@ -105,12 +105,6 @@ public class Game1Dice implements Game {
             gui.repaint();
             gui.revalidate();
         });
-
-        try {
-            sleep(1500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void moveAgain(Player currentPlayer) {
