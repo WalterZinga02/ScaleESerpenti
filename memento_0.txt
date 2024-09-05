@@ -1,0 +1,9 @@
+players=2
+rows=5
+columns=5
+stopBoxes=false
+bonusBoxes=false
+dacBoxes=false
+twoDice=false
+doubleSix=false
+twoDiceMod=false

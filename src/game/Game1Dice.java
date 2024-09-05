@@ -14,8 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import static java.lang.Thread.sleep;
-
 public class Game1Dice implements Game {
 
     private Playboard playboard;
